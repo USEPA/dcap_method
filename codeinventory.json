@@ -1,14 +1,14 @@
 {
-  "name": "Open Source Projects",
-  "description": "Contains files for teams to reuse when working in and with EPA Open Source projects.",
+  "name": "Database Calibrated Assessment Process (DCAP)",
+  "description": "Contains files for running the DCAP method and reproducing manuscript results.",
   "name": "MIT",
-  "URL":"https://github.com/USEPA/open-source-projects/blob/master/license.md",
+  "URL":"https://github.com/USEPA/dcap_method/blob/main/license.md",
   "usageType": "openSource",
   "tags": [
     "EPA",
     "opensource"
   ],
   "contact": {
-    "email": "ibarra.michelle@epa.gov"
+    "email": "davidsonfritz.sarah@epa.gov"
   }
 }

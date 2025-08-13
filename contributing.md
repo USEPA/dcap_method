@@ -7,4 +7,4 @@ LICENSE, and its [README](https://github.com/USEPA/open-source-projects/blob/mas
 
 All contributions to this project will be released under the MIT dedication. By submitting a pull request or issue, you are agreeing to comply with this waiver of copyright interest.
 
-If you have any questions or want to read more, check out the [EPA Open Source Project Repo](https://github.com/USEPA/open-source-projects) and [EPA's Interim Open Source Code Guidance](https://developer.epa.gov/guide/open-source-code/).
+If you have any questions or want to read more, check out the [EPA Open Source Project Repo](https://github.com/USEPA/open-source-projects).

@@ -1,0 +1,47 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Database Calibrated Assessment Process (DCAP)
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+## Overview
+This R program generates 1,001 calibrated toxicity values (CTVs) using the database-calibrated assessment process (DCAP) described in Harrill et al. (2025). To generate these CTVs, the user may run **Data Generator.R**. At the end of the script, **Data Generator.R** saves an Excel spreadsheet containing CTVs, as well as various intermediate values.
+
+## Data Generator.R
+To run **Data Generator.R**, the user may need to
+
+1. Install required packages that are listed in **lines 20-28** of **Data Generator.R**.
+2. Set the working directory. We use the 'here' package throughout the code to utilize user relative paths within the R project.  However, a user may also manually change the working directory `wd` to appropriate path (**line 41** - see note above the code within the script).
+
+## R Files Called in Data Generator.R 
+There are 7 R files that are called in **Data Generator.R**, which perform various tasks of DCAP. In particular,
+
+1. **Global Parameters.R** sets up parameters (objects) used in DCAP. It should be noted that, as the computation of the effective composite uncertainty adjustment (ECUA) is resource-intensive, the user may wish to change `Compute_various_ECUA` to `FALSE` (**line 14**) to obtain CTVs without performing uncertainty decomposition (**Uncertainty Decomposition.R**). If the user is interested in generating CTVs using variable database uncertainty factor (UF<sub>D</sub>) as outlined in Appendix 7 of Harrill _et al._ (2025), please change `process_variable_uncertainty` to `TRUE` (**line 23**).
+2. **Functions for Data Generator.R** provides two functions that were used in DCAP.
+3. **Step 0.R** reads the included input data extracted from ToxValDB (**Data/ToxValDB for BMDh res_toxval_v96_1 POD filtered_20250417.xlsx**).
+4. **Step 1.R** performs dose-response summary value (DRSV) to estimated human-equivalent benchmark dose eBMD<sub>HED</sub>.
+5.  **Steps 2 - 3.R** consolidates eBMD<sub>HED</sub> values by grouped DTXSIDs, estimate the distribution of eBMD<sub>HED</sub> values for each chemical and computes optimal calibration percentile (p<sub>calib</sub>) by comparing against eBMD<sub>HED</sub> values derived from DRSVs that were used by US and Canadian federal agencies to derive authoritative toxicity values. Note that **Calculate GSDdisc.R** is called within this script to calculate the GSD for discordance (GSD<sub>disc</sub>). Although GSD<sub>disc</sub> is a variable described as part of Step 5 in Harrill _et al._ (2025), it was calculated in **Steps 2 - 3.R** for computational efficiency when `Compute_various_ECUA` is set to `TRUE`.
+6. **Steps 4 - 6.R** calculates p<sub>calib</sub>eBMD<sub>HED</sub> for each chemical, uncertainty associated with DCAP (e.g., GSD<sub>p<sub>calib</sub>eBMD<sub>HED</sub></sub>, GSD<sub>disc</sub>, etc.),
+calibrated point-of-departure (cPOD), and CTV.
+7. **Uncertainty Decomposition.R** computes 12 ECUA values by setting various GSDs and uncertainty factors (UFs) to 1. This script was used to obtain Figures 15, 24, and 29 in Harrill _et al._ (2025).
+
+## References
+Alison H. Harrill, Shintaro Hagiwara, Chelsea A. Weitekamp, Paul C. Stanish, Jonathan T. Wall, Risa R. Sayre, Daniel T. Chang, Sarah E. Davidson-Fritz, Michael J. Devito, Chris J. Gonzales, Maxwell Groover, Michael F. Hughes, Richard S. Judson, Jason C. Lambert, Charles N. Lowe, Esra Mutlu, Katie Paul-Friedman, Andrew M. Watkins, Antony J. Williams, Daniel Krewski, Greg M. Paoli, Russell S. Thomas. 2025. Database-calibrated toxicity values for human health assessment based on existing toxicology data for one thousand chemicals. _Journal of Toxicology and Environmental Health, Part B: Critical Reviews_.
+
+WHO. 2018. Guidance document on evaluating and expressing uncertainty in hazard characterization, 2nd edition. _In IPCS harmonization project document_. Geneva: World Health Organization.
+
+### Disclaimer
+
+The United States Environmental Protection Agency (EPA) GitHub project code is provided on an "as is" basis and the user assumes responsibility for its use.  EPA has relinquished control of the information and no longer has responsibility to protect the integrity , confidentiality, or availability of the information.  Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by EPA.  The EPA seal and logo shall not be used in any manner to imply endorsement of any commercial product or activity by EPA or the United States Government.
